@@ -1,0 +1,11 @@
+
+<h2>Editar contacto</h2>
+<form action="/edit/<%= data.id %>" method="POST">
+  <input name="nombres" value="<%= data.nombres %>" required><br>
+  <input name="apellidos" value="<%= data.apellidos %>" required><br>
+  <input name="fecha_nacimiento" type="date" value="<%= data.fecha_nacimiento.toISOString().split('T')[0] %>" required><br>
+  <input name="direccion" value="<%= data.direccion %>" required><br>
+  <input name="celular" value="<%= data.celular %>" required><br>
+  <input name="correo" value="<%= data.correo %>" required><br>
+  <button type="submit">Actualizar</button>
+</form>

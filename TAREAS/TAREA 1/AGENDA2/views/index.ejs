@@ -1,0 +1,31 @@
+
+<h2>Lista de contactos</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Fecha Nac.</th>
+      <th>Dirección</th>
+      <th>Celular</th>
+      <th>Correo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% agenda.forEach(c => { %>
+      <tr>
+        <td><%= c.nombres %></td>
+        <td><%= c.apellidos %></td>
+        <td><%= c.fecha_nacimiento %></td>
+        <td><%= c.direccion %></td>
+        <td><%= c.celular %></td>
+        <td><%= c.correo %></td>
+        <td>
+          <a href="/edit/<%= c.id %>">Editar</a> | 
+          <a href="/delete/<%= c.id %>" onclick="return confirm('Eliminar este contacto?')">Eliminar</a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
