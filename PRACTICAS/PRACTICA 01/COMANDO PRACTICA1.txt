@@ -1,0 +1,31 @@
+Parte 3. Practica
+Enunciados
+1. Insertar un alumno mujer con dos materias y padre de apellido "Torres".
+
+2. Insertar cinco alumnos a la vez con datos variados.
+3. Insertar un alumno sin campo padre.
+4. Insertar un alumno hombre casado, nacido en 1990.
+5. Insertar un alumno con 4 materias y padre "Carlos Pérez".
+6. Insertar un alumno solo con "COM350" como materia.
+7. Listar alumnos cuyo padre tenga nombre "Luis" o "Miguel".
+8. Mostrar alumnos no casados que tengan "SIS256".
+9. Contar alumnos con más de 2 materias.
+10. Mostrar los 10 más viejos con nombres y fecha_nacimiento.
+11. Buscar alumnos con "COM350" y "SIS00".
+12. Mostrar solo nombres y sexo de los alumnos mujeres.
+13. Ordenar todos los alumnos por apellido ascendente.
+14. Listar alumnos nacidos entre 1998 y 2003.
+15. Mostrar alumnos cuyo apellido termine en "ez".
+16. Contar alumnos casados y con "SIS258".
+17. Cambiar el nombre "Luis" por "Luis Alberto".
+18. Agregar "SIS777" a todos los alumnos con "COM350".
+19. Poner casado: false a todos los alumnos con menos de 2 materias.
+20. Quitar "SIS256" de todos los que la tengan.
+21. Cambiar el nombre del padre "Juan" a "Juan José".
+22. Agregar un campo activo: true a todos los documentos.
+23. Eliminar todos los alumnos hombres.
+24. Eliminar a quien tenga "SIS777" como materia.
+25. Eliminar a los alumnos cuyo padre tenga apellido "Ramírez".
+26. Eliminar a los que nacieron después de 2004.
+27. Eliminar todos los casados.
+28. Eliminar al primer alumno que tenga "SIS258".
