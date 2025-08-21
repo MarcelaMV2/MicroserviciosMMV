@@ -1,0 +1,14 @@
+<h2>Agregar contacto</h2>
+
+<form action="/contactos" method="POST">
+  <p><label>Nombres <br><input name="nombres" required></label></p>
+  <p><label>Apellidos <br><input name="apellidos" required></label></p>
+  <p><label>Fecha nacimiento <br><input type="date" name="fecha_nacimiento" required></label></p>
+  <p><label>Dirección <br><input name="direccion"></label></p>
+  <p><label>Celular <br><input name="celular"></label></p>
+  <p><label>Correo <br><input type="email" name="correo"></label></p>
+  <p>
+    <button type="submit">Guardar</button>
+    <a href="/">Cancelar</a>
+  </p>
+</form>

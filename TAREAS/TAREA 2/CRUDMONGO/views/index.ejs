@@ -1,0 +1,37 @@
+<table>
+  <thead>
+    <tr>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Fecha nacimiento</th>
+      <th>Dirección</th>
+      <th>Celular</th>
+      <th>Correo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if (!agenda || agenda.length === 0) { %>
+    <tr><td colspan="7">Sin registros</td></tr>
+  <% } else { %>
+    <% agenda.forEach(p => { %>
+      <tr>
+        <td><%= p.nombres %></td>
+        <td><%= p.apellidos %></td>
+        <td><%= p.fecha_nacimiento ? new Date(p.fecha_nacimiento).toISOString().split('T')[0] : '' %></td>
+        <td><%= p.direccion %></td>
+        <td><%= p.celular %></td>
+        <td><%= p.correo %></td>
+        <td>
+          <div class="acciones">
+            <a href="/contactos/<%= p._id %>/edit">Editar</a>
+            <form class="inline" action="/contactos/<%= p._id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Eliminar?');">
+              <button type="submit">Eliminar</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    <% }) %>
+  <% } %>
+  </tbody>
+</table>
