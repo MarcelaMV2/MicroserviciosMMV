@@ -1,0 +1,16 @@
+<h2>Editar contacto</h2>
+<form action="/contactos/<%= persona._id %>?_method=PUT" method="POST">
+  <p><label>Nombres <br><input name="nombres" value="<%= persona.nombres %>" required></label></p>
+  <p><label>Apellidos <br><input name="apellidos" value="<%= persona.apellidos %>" required></label></p>
+  <p><label>Fecha nacimiento <br>
+    <input type="date" name="fecha_nacimiento"
+           value="<%= persona.fecha_nacimiento ? new Date(persona.fecha_nacimiento).toISOString().split('T')[0] : '' %>" required>
+  </label></p>
+  <p><label>Dirección <br><input name="direccion" value="<%= persona.direccion %>"></label></p>
+  <p><label>Celular <br><input name="celular" value="<%= persona.celular %>"></label></p>
+  <p><label>Correo <br><input type="email" name="correo" value="<%= persona.correo %>"></label></p>
+  <p>
+    <button type="submit">Actualizar</button>
+    <a href="/">Cancelar</a>
+  </p>
+</form>
