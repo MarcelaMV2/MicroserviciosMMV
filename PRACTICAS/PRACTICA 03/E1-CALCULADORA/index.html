@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container{
+            width: 30%;
+            text-align: center;
+            margin: 0 auto;
+            padding-top: 20px;
+            height: 500px;
+            border-radius: 2px solid black;
+            background-color: aqua;
+        }
+        label{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        input, select, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+        }
+        h2{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(6, 69, 129);
+        }
+        button{
+            background-color: rgb(6, 69, 129);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CALCULADORA</h2>
+        <form method="POST" action="/calcular">
+            <label for="num1">Numero 1: </label> <br>
+            <input type="number" id="num1" name="num1">
+            <br>
+            <label for="num2">Numero 2: </label> <br>
+            <input type="number" id="num2" name="num2">
+            <br>
+            <select name="op">Escoje el operador
+                <option value="suma">SUMA</option>
+                <option value="restar">RESTA</option>
+                <option value="multiplicar">MULTIPLICACION</option>
+                <option value="division">DIVISION</option>
+            </select>
+            <button type="submit">Calcular</button>
+        </form>
+    </div>
+</body>
+</html>

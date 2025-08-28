@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Usuarios</title>
+  <style>
+    body { font-family: Arial; background: #f0f8ff; }
+    h1 {color: #005f99; }
+    table { width: 80%; margin: auto; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #005f99; color: white; }
+    a { text-decoration: none; font-weight: bold; }
+    .btn { padding: 5px 10px; border-radius: 5px; }
+    .btn-add { display: inline-block; background: #005f99; color: white;padding: 5px 10px; margin: 20px;}
+    .btn-delete { background: #ff4d4d; color: white; }
+
+  </style>
+</head>
+<body>
+  <h1 align="center">Lista de Usuarios</h1>
+  <div align="center">
+    <a href="/add" class="btn btn-add">Nuevo Usuario</a>
+  </div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Correo Electrónico</th>
+      <th>Fecha de Registro</th>
+      <th>Acciones</th>
+    </tr>
+    <% usuarios.forEach(u => { %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= u.nombre %></td>
+        <td><%= u.correo %></td>
+        <td><%= u.fecha_registro.toLocaleDateString() %></td>
+        <td>
+          <a href="/delete/<%= u.id %>" class="btn btn-delete" onclick="return confirm('¿Eliminar usuario?')">Eliminar</a>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Tareas</title>
+  <style>
+    body { font-family: Arial; background: #f0f8ff; color: #333; }
+    h1 { color: #005f99; }
+    table { width: 80%; margin: auto; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #005f99; color: white; }
+    a { text-decoration: none; color: #005f99; font-weight: bold; }
+    .btn { padding: 5px 10px; border-radius: 5px; }
+    .btn-edit { background: #4da6ff; color: white; }
+    .btn-delete { background: #ff4d4d; color: white; }
+    .btn-add { display: inline-block; margin: 20px; padding: 10px 15px; background: #005f99; color: white; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1 align="center">Lista de Tareas</h1>
+  <div align="center">
+    <a href="/add" class="btn-add">Nueva Tarea</a>
+  </div>
+  <table>
+    <tr>
+      <th>Título</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    <% tareas.forEach(t => { %>
+      <tr>
+        <td><%= t.titulo %></td>
+        <td><%= t.descripcion %></td>
+        <td><%= t.estado %></td>
+        <td>
+          <a href="/edit/<%= t._id %>" class="btn btn-edit">Editar</a>
+          <a href="/delete/<%= t._id %>" class="btn btn-delete" onclick="return confirm('¿Eliminar tarea?')">Eliminar</a>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

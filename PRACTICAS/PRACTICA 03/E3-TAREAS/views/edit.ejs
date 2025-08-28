@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editar Tarea</title>
+  <style>
+    body { font-family: Arial; background: #f0f8ff; color: #333; text-align: center; }
+    form { width: 50%; margin: auto; background: #e6f2ff; padding: 20px; border-radius: 10px; }
+    input, textarea, select { width: 100%; margin: 10px 0; padding: 8px; }
+    button { background: #4da6ff; color: white; padding: 10px 15px; border: none; border-radius: 5px; }
+    a { color: #005f99; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Editar Tarea</h1>
+  <form action="/edit/<%= tarea._id %>" method="POST">
+    <input type="text" name="titulo" value="<%= tarea.titulo %>" required>
+    <textarea name="descripcion"><%= tarea.descripcion %></textarea>
+    <select name="estado">
+      <option value="pendiente" <%= tarea.estado === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+      <option value="en progreso" <%= tarea.estado === 'en progreso' ? 'selected' : '' %>>En progreso</option>
+      <option value="completado" <%= tarea.estado === 'completado' ? 'selected' : '' %>>Completado</option>
+    </select>
+    <button type="submit">Actualizar</button>
+  </form>
+  <p><a href="/">Volver</a></p>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuevo Usuario</title>
+  <style>
+    body { font-family: Arial; background: #f0f8ff; text-align: center; }
+    form { width: 50%; margin: auto; background: #e6f2ff; padding: 20px; border-radius: 10px; }
+    input { width: 100%; margin: 10px 0; padding: 8px; }
+    button { background: #005f99; color: white; padding: 10px 15px; border: none; border-radius: 5px; }
+    a { color: #005f99; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Registrar Usuario</h1>
+  <form action="/add" method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="email" name="correo" placeholder="Correo Electrónico" required>
+    <button type="submit">Guardar</button>
+  </form>
+  <p><a href="/">Volver</a></p>
+</body>
+</html>
