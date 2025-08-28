@@ -1,7 +1,7 @@
 {
-  "name": "crudmongo",
+  "name": "dockerizacion",
   "version": "1.0.0",
-  "description": "Agenda CRUD con Node.js y MongoDB",
+  "description": "Dockerizacion del crud mongo",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
