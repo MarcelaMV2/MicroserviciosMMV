@@ -1,7 +1,6 @@
 const { getRepository } = require("typeorm");
 const { DetalleFactura } = require("../entity/DetalleFactura");
 
-// Obtener todos los detalles de factura
 const obtenerDetalles = async (req, res) => {
   try {
     const detalles = await getRepository(DetalleFactura).find({
@@ -14,7 +13,6 @@ const obtenerDetalles = async (req, res) => {
   }
 };
 
-// Obtener detalles de una factura específica
 const obtenerDetallesPorFactura = async (req, res) => {
   try {
     const { facturaId } = req.params;
@@ -34,7 +32,6 @@ const obtenerDetallesPorFactura = async (req, res) => {
   }
 };
 
-// Crear un nuevo detalle de factura
 const crearDetalle = async (req, res) => {
   try {
     const { factura_id, producto_id, cantidad, precio } = req.body;
@@ -54,7 +51,6 @@ const crearDetalle = async (req, res) => {
   }
 };
 
-// Editar un detalle de factura
 const editarDetalle = async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,7 +79,7 @@ const editarDetalle = async (req, res) => {
   }
 };
 
-// Eliminar un detalle de factura
+
 const eliminarDetalle = async (req, res) => {
   try {
     const resultado = await getRepository(DetalleFactura).delete({
