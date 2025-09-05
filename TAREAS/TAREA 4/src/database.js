@@ -1,5 +1,8 @@
 const { createConnection } = require("typeorm");
-//const { Usuario } = require("./entity/Usuario");
+const { Cliente } = require("./entity/Cliente");
+const { Producto } = require("./entity/Producto");
+const { Factura } = require("./entity/Factura");
+const { DetalleFactura } = require("./entity/DetalleFactura");
 
 const connectDB = async () => {
   try {
@@ -10,7 +13,7 @@ const connectDB = async () => {
       username: process.env.DB_USER, 
       password: process.env.DB_PASS,
       database: process.env.DB_NAME, //Base de datos
-      //entities: [Usuario], 
+      entities: [Cliente,Producto,Factura,DetalleFactura], 
       synchronize: true, // Solo para desarrollo (crea automáticamente las tablas)
     });
     console.log("Conexión a la base de datos establecida correctamente.");

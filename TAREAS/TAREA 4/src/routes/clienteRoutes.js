@@ -1,37 +1,55 @@
 const express = require("express");
+const { getRepository } = require("typeorm");
+const { Cliente } = require("../entity/Cliente");
+const { obtenerClientes, crearClientes, editarCliente, eliminarCliente } = require("../controller/clienteController");
+
 const router = express.Router();
-const {
-  obtenerClientes,
-  crearCliente,
-  editarCliente,
-  eliminarCliente,
-} = require("../controllers/clientesController");
 
 /**
  * @swagger
- * tags:
- *   name: Clientes
- *   description: Gestión de clientes
- */
-
-/**
- * @swagger
- * /api/clientes:
+ * /clientes:
  *   get:
  *     summary: Obtener todos los clientes
- *     tags: [Clientes]
+ *     description: Retorna una lista de clientes en la base de datos.
  *     responses:
  *       200:
- *         description: Lista de clientes
+ *         description: Lista de clientes obtenida correctamente.
  */
 router.get("/", obtenerClientes);
 
 /**
  * @swagger
- * /api/clientes:
+ * /clientes/{id}:
+ *   get:
+ *     summary: Obtener un cliente por ID
+ *     description: Retorna un cliente específico.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del cliente a buscar.
+ *     responses:
+ *       200:
+ *         description: Cliente encontrado.
+ *       404:
+ *         description: Cliente no encontrado.
+ */
+router.get("/:id", async (req, res) => {
+  const cliente = await getRepository(Cliente).findOneBy({ id: req.params.id });
+  if (!cliente) {
+    return res.status(404).json({ mensaje: "Cliente no encontrado" });
+  }
+  res.json(cliente);
+});
+
+/**
+ * @swagger
+ * /clientes:
  *   post:
  *     summary: Crear un cliente
- *     tags: [Clientes]
+ *     description: Crea un nuevo cliente en la base de datos.
  *     requestBody:
  *       required: true
  *       content:
@@ -39,79 +57,86 @@ router.get("/", obtenerClientes);
  *           schema:
  *             type: object
  *             properties:
- *               ci:
+ *               ci: 
  *                 type: string
- *                 example: "123456"
- *               nombres:
+ *                 example: "10541111"
+ *               nombres: 
  *                 type: string
- *                 example: "Juan"
- *               apellidos:
+ *                 example: "Marcela Paola"
+ *               apellidos: 
  *                 type: string
- *                 example: "Pérez"
+ *                 example: "Miranda Veniz"
+ *               sexo:
+ *                 type: string
+ *                 example: "F"
+ *     responses:
+ *       201:
+ *         description: Cliente creado correctamente.
+ */
+router.post("/", crearClientes);
+
+/**
+ * @swagger
+ * /clientes/{id}:
+ *   put:
+ *     summary: Editar un cliente
+ *     description: Actualiza los datos de un cliente existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del cliente a editar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ci: 
+ *                 type: string
+ *                 example: "10541111"
+ *               nombres: 
+ *                 type: string
+ *                 example: "Emanuel Editado"
+ *               apellidos: 
+ *                 type: string
+ *                 example: "Miranda Veniz"
  *               sexo:
  *                 type: string
  *                 enum: [M, F]
  *                 example: "M"
  *     responses:
- *       201:
- *         description: Cliente creado
- */
-router.post("/", crearCliente);
-
-/**
- * @swagger
- * /api/clientes/{id}:
- *   put:
- *     summary: Editar un cliente
- *     tags: [Clientes]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nombres:
- *                 type: string
- *                 example: "Carlos"
- *               apellidos:
- *                 type: string
- *                 example: "López"
- *               sexo:
- *                 type: string
- *                 enum: [M, F]
- *                 example: "F"
- *     responses:
  *       200:
- *         description: Cliente actualizado
+ *         description: Cliente actualizado correctamente.
+ *       400:
+ *         description: Datos inválidos.
  *       404:
- *         description: Cliente no encontrado
+ *         description: Cliente no encontrado.
  */
 router.put("/:id", editarCliente);
 
+
 /**
  * @swagger
- * /api/clientes/{id}:
+ * /clientes/{id}:
  *   delete:
  *     summary: Eliminar un cliente
- *     tags: [Clientes]
+ *     description: Elimina un cliente por su ID.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
+ *         description: ID del cliente a eliminar.
  *     responses:
  *       200:
- *         description: Cliente eliminado
+ *         description: Cliente eliminado correctamente.
  *       404:
- *         description: Cliente no encontrado
+ *         description: Cliente no encontrado.
  */
 router.delete("/:id", eliminarCliente);
 

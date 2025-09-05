@@ -1,37 +1,68 @@
+require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const connectDB = require("./connectDB"); // tu archivo de conexión TypeORM
-const swaggerDocs = require("./swagger"); // configuración de Swagger
+
+const connectDB = require("./database");
+const clienteRoutes  = require("./routes/clienteRoutes");
+const productoRoutes = require("./routes/productoRoutes")
+const facturaRoutes = require("./routes/facturaRoutes")
+const detalleFacturaRoutes = require("./routes/detalleFacturaRoutes");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
+const path = require("path");
 
-// Middlewares
-app.use(cors()); // Permite peticiones desde otros orígenes (ej. Flutter, React, etc.)
-app.use(express.json()); // Para interpretar JSON en el body
+// Configuracion de Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Conectar BD con TypeORM
-connectDB();
+//definir rutas
+app.use("/clientes", clienteRoutes);
+app.use("/api/clientes", clienteRoutes);
+//definir rutas
+app.use("/productos", productoRoutes);
+app.use("/api/productos", productoRoutes);
+//definir rutas
+app.use("/facturas", facturaRoutes);
+app.use("/api/facturas", facturaRoutes);
+//definir rutas
+app.use("/detalles", detalleFacturaRoutes);
+//app.use("/api/detalle", facturaRoutes);
 
-// Importar rutas
-const clientesRoutes = require("./routes/clientesRoute");
-app.use("/api/clientes", clientesRoutes);
 
-// Ruta raíz de prueba
-app.get("/", (req, res) => {
-  res.json({ mensaje: "Bienvenido a la API de Sistema de Ventas" });
+
+// Configuración de Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "API de Clientes",
+      version: "1.0.0",
+      description: "Documentación de la API de Clientes con Node.js y TypeORM",
+    },
+    servers: [{ url: "http://localhost:3000", description: "Servidor Local" }],
+  },
+  apis: [path.join(__dirname, "routes/*.js")]
+  //apis: ["./routes/*.js"], // Cargar todas las rutas
+};
+console.log(swaggerOptions);
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/", (req, res) => {
+  res.send("Bienvenido a la página principal!!");
 });
 
-// Swagger docs en /api-docs
-swaggerDocs(app);
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
 
-// Manejo de rutas no encontradas
-app.use((req, res) => {
-  res.status(404).json({ error: "Ruta no encontrada" });
-});
-
-// Levantar servidor
-app.listen(port, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${port}`);
-  console.log(`📄 Documentación en http://localhost:${port}/api-docs`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`📄 Swagger en http://localhost:${PORT}/api-docs`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Error al conectar con la base de datos:", err);
+  });
