@@ -3,9 +3,30 @@ const bcrypt = require("bcrypt");
 const { Producto } = require("../entity/Producto") 
 
 const obtenerProductos = async (req, res) => {
-    const productos = await getRepository(Producto).find();
-    res.json(productos);
+  try {
+    const page = parseInt(req.query.page) || 1;    // número de página
+    const limit = parseInt(req.query.limit) || 10; // registros por página
+    const skip = (page - 1) * limit;
+
+    const repo = getRepository(Producto);
+
+    const [productos, total] = await repo.findAndCount({
+      skip,
+      take: limit,
+    });
+
+    res.json({
+      total,   
+      page,    
+      limit,  
+      data: productos,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al obtener productos" });
+  }
 };
+
 
 const crearProductos = async (req, res) => {
     const { nombre, descripcion,marca,stock } = req.body;

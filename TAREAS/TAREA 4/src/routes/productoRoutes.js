@@ -7,19 +7,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /productos:
+ * /api/productos:
  *   get:
- *     summary: Obtener todos los productos
- *     description: Retorna una lista de productos en la base de datos.
+ *     summary: Obtener todos los productos (con paginación)
+ *     description: Retorna una lista de productos de la base de datos.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: Número de página (por defecto 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *         description: Cantidad de registros por página (por defecto 10)
  *     responses:
  *       200:
  *         description: Lista de productos obtenida correctamente.
  */
 router.get("/", obtenerProductos);
 
+
 /**
  * @swagger
- * /productos/{id}:
+ * /api/productos/{id}:
  *   get:
  *     summary: Obtener un producto por ID
  *     description: Retorna un producto específico.
@@ -46,7 +60,7 @@ router.get("/:id", async (req, res) => {
 
 /**
  * @swagger
- * /productos:
+ * /api/productos:
  *   post:
  *     summary: Crear un producto
  *     description: Crea un nuevo producto en la base de datos.
@@ -73,7 +87,7 @@ router.post("/", crearProductos);
 
 /**
  * @swagger
- * /productos/{id}:
+ * /api/productos/{id}:
  *   put:
  *     summary: Editar un producto
  *     description: Actualiza los datos de un producto existente.
@@ -112,7 +126,7 @@ router.put("/:id", editarProducto);
 
 /**
  * @swagger
- * /productos/{id}:
+ * /api/productos/{id}:
  *   delete:
  *     summary: Eliminar un producto
  *     description: Elimina un producto por su ID.

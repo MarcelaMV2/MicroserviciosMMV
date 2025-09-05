@@ -7,19 +7,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /detalles:
+ * /api/detalles:
  *   get:
- *     summary: Obtener todos los detalles de facturas
- *     description: Retorna una lista de todos los detalles de facturas con sus productos y facturas asociadas.
+ *     summary: Obtener todos los detalles de facturas (con paginación)
+ *     description: Retorna una lista de detalles de facturas con sus productos y facturas asociadas.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: Número de página (por defecto 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *         description: Cantidad de registros por página (por defecto 10)
  *     responses:
  *       200:
  *         description: Lista de detalles obtenida correctamente.
  */
 router.get("/", obtenerDetalles);
 
+
 /**
  * @swagger
- * /detalles/factura/{facturaId}:
+ * /api/detalles/factura/{facturaId}:
  *   get:
  *     summary: Obtener detalles de una factura específica
  *     description: Retorna todos los detalles de una factura en particular.
@@ -40,7 +54,7 @@ router.get("/factura/:facturaId", obtenerDetallesPorFactura);
 
 /**
  * @swagger
- * /detalles:
+ * /api/detalles:
  *   post:
  *     summary: Crear un detalle de factura
  *     description: Crea un nuevo detalle de factura asociado a un producto y una factura existente.
@@ -72,7 +86,7 @@ router.post("/", crearDetalle);
 
 /**
  * @swagger
- * /detalles/{id}:
+ * /api/detalles/{id}:
  *   put:
  *     summary: Editar un detalle de factura
  *     description: Actualiza los datos de un detalle de factura existente.
@@ -115,7 +129,7 @@ router.put("/:id", editarDetalle);
 
 /**
  * @swagger
- * /detalles/{id}:
+ * /api/detalles/{id}:
  *   delete:
  *     summary: Eliminar un detalle de factura
  *     description: Elimina un detalle de factura por su ID.

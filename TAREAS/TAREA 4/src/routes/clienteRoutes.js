@@ -7,19 +7,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /clientes:
+ * /api/clientes:
  *   get:
- *     summary: Obtener todos los clientes
+ *     summary: Obtener todos los clientes (con paginación)
  *     description: Retorna una lista de clientes en la base de datos.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: Número de página (por defecto 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *         description: Cantidad de registros por página (por defecto 10)
  *     responses:
  *       200:
  *         description: Lista de clientes obtenida correctamente.
  */
 router.get("/", obtenerClientes);
 
+
 /**
  * @swagger
- * /clientes/{id}:
+ * /api/clientes/{id}:
  *   get:
  *     summary: Obtener un cliente por ID
  *     description: Retorna un cliente específico.
@@ -46,7 +60,7 @@ router.get("/:id", async (req, res) => {
 
 /**
  * @swagger
- * /clientes:
+ * /api/clientes:
  *   post:
  *     summary: Crear un cliente
  *     description: Crea un nuevo cliente en la base de datos.
@@ -77,7 +91,7 @@ router.post("/", crearClientes);
 
 /**
  * @swagger
- * /clientes/{id}:
+ * /api/clientes/{id}:
  *   put:
  *     summary: Editar un cliente
  *     description: Actualiza los datos de un cliente existente.
@@ -121,7 +135,7 @@ router.put("/:id", editarCliente);
 
 /**
  * @swagger
- * /clientes/{id}:
+ * /api/clientes/{id}:
  *   delete:
  *     summary: Eliminar un cliente
  *     description: Elimina un cliente por su ID.

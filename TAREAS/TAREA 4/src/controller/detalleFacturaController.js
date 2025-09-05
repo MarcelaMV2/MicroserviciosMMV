@@ -1,17 +1,44 @@
 const { getRepository } = require("typeorm");
 const { DetalleFactura } = require("../entity/DetalleFactura");
 
+//const obtenerDetalles = async (req, res) => {
+//  try {
+//    const detalles = await getRepository(DetalleFactura).find({
+//      relations: ["factura", "producto"],
+//    });
+//    res.json(detalles);
+//  } catch (err) {
+//    console.error(err);
+//    res.status(500).json({ error: "Error al obtener detalles" });
+//  }
+//};
+
 const obtenerDetalles = async (req, res) => {
   try {
-    const detalles = await getRepository(DetalleFactura).find({
+    const page = parseInt(req.query.page) || 1;    // número de página
+    const limit = parseInt(req.query.limit) || 10; // registros por página
+    const skip = (page - 1) * limit;
+
+    const repo = getRepository(DetalleFactura);
+
+    const [detalles, total] = await repo.findAndCount({
       relations: ["factura", "producto"],
+      skip,
+      take: limit,
     });
-    res.json(detalles);
+
+    res.json({
+      total,   // total de detalles en la BD
+      page,    // página actual
+      limit,   // registros por página
+      data: detalles,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error al obtener detalles" });
   }
 };
+
 
 const obtenerDetallesPorFactura = async (req, res) => {
   try {

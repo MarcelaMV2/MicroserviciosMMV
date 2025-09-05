@@ -4,15 +4,30 @@ const { Factura } = require("../entity/Factura");
 
 const obtenerFacturas = async (req, res) => {
   try {
-    const facturas = await getRepository(Factura).find({
-      relations: ["cliente"], 
+    const page = parseInt(req.query.page) || 1;    // número de página
+    const limit = parseInt(req.query.limit) || 10; // registros por página
+    const skip = (page - 1) * limit;
+
+    const repo = getRepository(Factura);
+
+    const [facturas, total] = await repo.findAndCount({
+      relations: ["cliente"],
+      skip,
+      take: limit,
     });
-    res.json(facturas);
+
+    res.json({
+      total,   // total de facturas en la BD
+      page,    // página actual
+      limit,   // registros por página
+      data: facturas,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error al obtener facturas" });
   }
 };
+
 
 const crearFactura = async (req, res) => {
   try {

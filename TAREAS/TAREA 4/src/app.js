@@ -18,17 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //definir rutas
-app.use("/clientes", clienteRoutes);
+//app.use("/clientes", clienteRoutes);
 app.use("/api/clientes", clienteRoutes);
 //definir rutas
-app.use("/productos", productoRoutes);
+//app.use("/productos", productoRoutes);
 app.use("/api/productos", productoRoutes);
 //definir rutas
-app.use("/facturas", facturaRoutes);
+//app.use("/facturas", facturaRoutes);
 app.use("/api/facturas", facturaRoutes);
 //definir rutas
-app.use("/detalles", detalleFacturaRoutes);
-//app.use("/api/detalle", facturaRoutes);
+//app.use("/detalles", detalleFacturaRoutes);
+app.use("/api/detalle", facturaRoutes);
 
 
 

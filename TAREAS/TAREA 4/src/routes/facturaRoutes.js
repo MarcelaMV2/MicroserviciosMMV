@@ -7,19 +7,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /facturas:
+ * /api/facturas:
  *   get:
- *     summary: Obtener todas las facturas
- *     description: Retorna una lista de facturas en la base de datos.
+ *     summary: Obtener todas las facturas (con paginación)
+ *     description: Retorna una lista de facturas con su cliente asociado.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: Número de página (por defecto 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *         description: Cantidad de registros por página (por defecto 10)
  *     responses:
  *       200:
  *         description: Lista de facturas obtenida correctamente.
  */
 router.get("/", obtenerFacturas);
 
+
 /**
  * @swagger
- * /facturas/{id}:
+ * /api/facturas/{id}:
  *   get:
  *     summary: Obtener una factura por ID
  *     description: Retorna una factura específica con su cliente asociado.
@@ -49,7 +63,7 @@ router.get("/:id", async (req, res) => {
 
 /**
  * @swagger
- * /facturas:
+ * /api/facturas:
  *   post:
  *     summary: Crear una factura
  *     description: Crea una nueva factura asociada a un cliente existente.
@@ -75,7 +89,7 @@ router.post("/", crearFactura);
 
 /**
  * @swagger
- * /facturas/{id}:
+ * /api/facturas/{id}:
  *   put:
  *     summary: Editar una factura
  *     description: Actualiza los datos de una factura existente.
@@ -112,7 +126,7 @@ router.put("/:id", editarFactura);
 
 /**
  * @swagger
- * /facturas/{id}:
+ * /api/facturas/{id}:
  *   delete:
  *     summary: Eliminar una factura
  *     description: Elimina una factura por su ID.
