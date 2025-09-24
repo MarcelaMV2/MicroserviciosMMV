@@ -4,7 +4,7 @@ package universidad;
 
 import "google/protobuf/empty.proto";
 
-// ==== Entidades ====
+
 message Estudiante {
   string ci = 1;
   string nombres = 2;
@@ -18,7 +18,7 @@ message Curso {
   string docente = 3;
 }
 
-// ==== Requests & Responses ====
+
 message EstudianteRequest {
   string ci = 1;
 }
@@ -52,7 +52,7 @@ message InscripcionResponse {
   string mensaje = 1;
 }
 
-// ==== Servicio ====
+
 service UniversidadService {
   rpc AgregarEstudiante(Estudiante) returns (EstudianteResponse);
   rpc AgregarCurso(Curso) returns (CursoResponse);
