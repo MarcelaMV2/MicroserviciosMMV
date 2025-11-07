@@ -1,0 +1,23 @@
+syntax = "proto3";
+package vehiculos;
+import "google/protobuf/empty.proto";
+
+message Vehiculo {
+  string id = 1;         
+  string placa = 2;       
+  string tipo = 3;        
+  string capacidad = 4;   
+  string estado = 5;      
+}
+
+message VerificarDisponibilidadRequest {
+  string vehiculo_id = 1; 
+}
+
+message VerificarDisponibilidadResponse {
+  bool disponible = 1;     
+}
+
+service VehiculoService {
+  rpc VerificarDisponibilidad(VerificarDisponibilidadRequest) returns (VerificarDisponibilidadResponse);
+}

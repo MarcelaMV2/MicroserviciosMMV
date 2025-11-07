@@ -1,0 +1,31 @@
+# Ignorar los node_modules de todos los servicios
+/servicio-login/node_modules/
+/servicio-vehiculos/node_modules/
+/servicio-envios/node_modules/
+
+# Ignorar cualquier archivo .env en todos los servicios
+/servicio-login/.env
+/servicio-vehiculos/.env
+/servicio-envios/.env
+
+# Ignorar archivos generados por la base de datos (si los hay)
+**/*.log
+**/*.sql
+
+# Ignorar los volúmenes de Docker si usas Docker
+/docker/
+
+# Ignorar las configuraciones de TypeORM, si las tienes en algún directorio de configuración
+/ormconfig.js
+
+# Ignorar las configuraciones de build si las usas (como en `build.rs` para Rust o `dist/` en Node.js)
+**/dist/
+**/target/
+
+# Ignorar archivos temporales de editor (por ejemplo, archivos de VSCode)
+.vscode/
+.idea/
+
+# Ignorar archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+syntax = "proto3";
+package envios;
+import "vehiculos.proto";
+
+message Envio {
+  string id = 1;           
+  string usuario_id = 2;   
+  string vehiculo_id = 3;  
+  string origen = 4;      
+  string destino = 5;      
+  string fecha_envio = 6;   
+  string estado = 7;       
+}
+
+message InscripcionRequest {
+  string usuario_id = 1;
+  string vehiculo_id = 2; 
+  string origen = 3;     
+  string destino = 4;    
+  string fecha_envio = 5; 
+}
+
+
+message InscripcionResponse {
+  string mensaje = 1;    
+  string estado = 2;      
+}
+
+service EnvioService {
+  rpc AgregarEnvio(InscripcionRequest) returns (InscripcionResponse);
+}

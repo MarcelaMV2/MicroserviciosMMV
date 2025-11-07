@@ -1,0 +1,104 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usuarios_db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3307:3306"            
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    networks: [appnet]
+
+  mongo:
+    image: mongo:6
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand({ ping: 1 }).ok' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    networks: [appnet]
+
+  servicio-login:
+    build: ./servicio-login
+    container_name: servicio_login
+    restart: always
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_HOST: mysql
+      DB_USER: appuser
+      DB_PASS: apppass
+      DB_NAME: logistica_db
+      JWT_SECRET: supersecreto123
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+    networks: [appnet]
+
+  servicio-vehiculos:
+    build: ./servicio-vehiculos
+    container_name: servicio_vehiculos
+    restart: always
+    environment:
+      JWT_SECRET: supersecreto123
+      MONGO_URL: mongodb://mongo:27017
+      MONGO_DB: logistica
+      VEHICULOS_HTTP_PORT: 3002
+      VEHICULOS_GRPC_PORT: 50051
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "3002:3002"    
+      - "50051:50051"  
+    networks: [appnet]
+
+  servicio-envios:
+    build: ./servicio-envios
+    container_name: servicio_envios
+    restart: always
+    environment:
+      NODE_ENV: development
+      ENVIOS_PORT: 3003
+      DB_HOST: mysql
+      DB_USER: appuser
+      DB_PASS: apppass
+      DB_NAME: logistica_db
+      JWT_SECRET: hgvg
+      VEHICULOS_GRPC_HOST: servicio-vehiculos
+      VEHICULOS_GRPC_PORT: 50051
+    depends_on:
+      mysql:
+        condition: service_healthy
+      servicio-vehiculos:
+        condition: service_started
+    ports:
+      - "3003:3003"
+    networks: [appnet]
+
+networks:
+  appnet:
+
+volumes:
+  mysql_data:
+  mongo_data:
